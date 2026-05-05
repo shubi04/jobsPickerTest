@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   description:
     "Connect with top employers and find the perfect job opportunity. JobsPicker makes job hunting simple and effective.",
   keywords: ["jobs", "career", "employment", "hiring", "job board"],
+  applicationName: "JobsPicker",
 };
 
 export const viewport: Viewport = {
