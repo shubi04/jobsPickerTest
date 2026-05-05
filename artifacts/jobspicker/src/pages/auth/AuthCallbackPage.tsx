@@ -7,16 +7,22 @@ export default function AuthCallbackPage() {
 
   useEffect(() => {
     const handleCallback = async () => {
-      const supabase = createClient();
-      const { error } = await supabase.auth.exchangeCodeForSession(
-        window.location.search
-      );
-      if (error) {
-        navigate("/auth/error");
-      } else {
-        navigate("/dashboard");
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get("code");
+      const next = params.get("next") ?? "/dashboard";
+
+      if (code) {
+        const supabase = createClient();
+        const { error } = await supabase.auth.exchangeCodeForSession(code);
+        if (!error) {
+          navigate(next);
+          return;
+        }
       }
+
+      navigate("/auth/error");
     };
+
     handleCallback();
   }, [navigate]);
 
